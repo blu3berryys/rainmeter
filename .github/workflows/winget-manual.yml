@@ -5,7 +5,7 @@ on:
     inputs:
       release-tag:
         type: string
-        description: Github release tag (vX.X.X.X)
+        description: GitHub release tag (vX.X.X.X)
         required: true
       version:
         type: string
@@ -15,12 +15,14 @@ on:
 jobs:
   publish:
     runs-on: windows-latest
+
     steps:
-      - uses:  vedantmgoyal9/winget-releaser@main
+      - name: Publish to WinGet
+        uses: vedantmgoyal9/winget-releaser@main
         with:
           identifier: Rainmeter.Rainmeter
           version: ${{ inputs.version }}
-          installers-regex: '\.exe$' # Only .exe files
+          installers-regex: '\.exe$'  # Only .exe files
           max-versions-to-keep: 1
           release-tag: ${{ inputs.release-tag }}
           token: ${{ secrets.WINGET_TOKEN }}
